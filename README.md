@@ -66,7 +66,7 @@ Curated with a deliberate split:
 
 Topics covered: fairness, transparency, accountability, explainability, trustworthy AI, bias mitigation, AI governance, EU AI Act context, power dynamics in AI development.
 
-Total: **2,874 chunks** · avg chunk size **895 characters**
+Total: **1949 chunks** · avg chunk size **847 characters**
 
 ---
 
@@ -78,11 +78,13 @@ Total: **2,874 chunks** · avg chunk size **895 characters**
 Retrieved 20 chunks → Reranked to 5 chunks
 
 Sources used:
-  [1] 2305.02231v2        (rerank score: 5.370)
-  [2] 2305.02231v2        (rerank score: 4.527)
-  [3] 1910.10045v2        (rerank score: 1.996)
-  [4] 7df0c76dd9ae6af09f8 (rerank score: 1.747)
-  [5] 2504.16148v1        (rerank score: 1.744)
+  1] Connecting the Dots in Trustworthy Artificial Intelligence (rerank score: 5.370)
+  [2] Connecting the Dots in Trustworthy Artificial Intelligence (rerank score: 4.527)
+  [3] Explainable Artificial Intelligence (XAI): Concepts, Taxonomies,
+    Opportunities and Challenges toward Responsible AI  (rerank score: 1.996)
+  [4] Harnessing Metacognition for Safe and Responsible AI  (rerank score: 1.747)
+  [5] Towards Responsible AI for Education: Hybrid Human-AI to Confront
+    the Elephant in the Room  (rerank score: 1.744)
 ```
 
 > According to the provided research papers, explainability and accountability are related but distinct concepts. Explainability refers to the ability of an AI system to provide clear and understandable reasons for its functioning and decision-making processes [Source 3]. Accountability, on the other hand, is a matter of compliance with ethical and legal standards, answerability, reporting, and oversight, and attribution and enforcement of consequences [Source 2].
