@@ -78,7 +78,7 @@ Total: **1949 chunks** · avg chunk size **847 characters**
 Retrieved 20 chunks → Reranked to 5 chunks
 
 Sources used:
-  1] Connecting the Dots in Trustworthy Artificial Intelligence (rerank score: 5.370)
+  [1] Connecting the Dots in Trustworthy Artificial Intelligence (rerank score: 5.370)
   [2] Connecting the Dots in Trustworthy Artificial Intelligence (rerank score: 4.527)
   [3] Explainable Artificial Intelligence (XAI): Concepts, Taxonomies,
     Opportunities and Challenges toward Responsible AI  (rerank score: 1.996)
