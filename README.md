@@ -2,7 +2,7 @@
 # Responsible AI Research Assistant
 ### A production-grade RAG pipeline for querying academic research on Responsible AI
 
-> **Status:** Pipeline complete  · Streamlit app in progress  · Docker + CI/CD + deployment coming 
+> **Status:** Pipeline complete  · Streamlit app in coming  · Docker + CI/CD + deployment coming 
 
 ---
 
