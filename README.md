@@ -2,7 +2,7 @@
 # Responsible AI Research Assistant
 ### A production-grade RAG pipeline for querying academic research on Responsible AI
 
-> **Status:** Pipeline complete (Days 1–4) · Streamlit app in progress (Day 5) · Docker + CI/CD + deployment coming (Days 6–7)
+> **Status:** Pipeline complete  · Streamlit app in progress  · Docker + CI/CD + deployment coming 
 
 ---
 
@@ -135,29 +135,4 @@ The ingestion script checks existing chunk IDs in ChromaDB before embedding. Add
 
 ---
 
-## Setup
 
-**Clone and install:**
-```bash
-git clone https://github.com/Donna737/responsible-ai-rag.git
-cd responsible-ai-rag
-pip install -r requirements.txt
-```
-
-**Set your API key:**
-```bash
-export GROQ_API_KEY=your-key-here
-```
-Get a free key at [console.groq.com](https://console.groq.com)
-
-**Add your papers:**
-Place PDF files in a `papers/` folder, then run the notebook cells in order — extraction → chunking → embedding → query.
-
----
-
-## About
-
-Built by Dona — Data Scientist based in Hildesheim, Germany.
-M.Sc. Data Analytics, Universität Hildesheim · B.Sc. Electrical Engineering, University of Tehran.
-
-[GitHub](https://github.com/Donna737) · [LinkedIn](https://linkedin.com/in/your-profile)
