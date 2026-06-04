@@ -3,6 +3,11 @@ __pycache__/
 *.py[codz]
 *$py.class
 
+# Project specific
+chroma_db/
+papers/
+*.pdf
+
 # C extensions
 *.so
 
