@@ -1,11 +1,8 @@
 ---
 title: Responsible AI Research Assistant
 emoji: 🔍
-colorFrom: blue
-colorTo: indigo
 sdk: docker
 app_file: app.py
-pinned: false
 ---
 
 # Responsible AI Research Assistant
