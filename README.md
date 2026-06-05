@@ -1,8 +1,17 @@
-# responsible-ai-rag
+---
+title: Responsible AI Research Assistant
+emoji: 🔍
+colorFrom: blue
+colorTo: indigo
+sdk: docker
+app_file: app.py
+pinned: false
+---
+
 # Responsible AI Research Assistant
 ### A production-grade RAG pipeline for querying academic research on Responsible AI
 
-> **Status:** Pipeline complete  · Streamlit app in coming  · Docker + CI/CD + deployment coming 
+> **Live demo:** [huggingface.co/spaces/DonaArabi99/responsible-ai-rag](https://huggingface.co/spaces/DonaArabi99/responsible-ai-rag)
 
 ---
 
@@ -12,7 +21,7 @@ A Retrieval-Augmented Generation (RAG) system that lets you ask research questio
 
 This is not a wrapper around a chatbot. The system retrieves specific passages from real papers, reranks them for relevance, and instructs the LLM to answer *only* from what the papers say — with inline citations traceable to the source. If the answer isn't in the corpus, it says so.
 
-Built as a portfolio project to demonstrate end-to-end AI engineering — from data collection and document processing through embedding, vector search, reranking, and grounded generation — with production practices including modular design, persistent storage, scalable ingestion, and (coming) Docker and CI/CD.
+Built as a portfolio project to demonstrate end-to-end AI engineering — from data collection and document processing through embedding, vector search, reranking, and grounded generation — with production practices including modular design, persistent storage, scalable ingestion, Docker containerization, and Hugging Face deployment.
 
 ---
 
@@ -22,23 +31,24 @@ Built as a portfolio project to demonstrate end-to-end AI engineering — from d
                         ┌─────────────────────────────────┐
                         │         INGESTION (once)         │
                         │                                  │
-  arXiv PDFs ──► PyMuPDF extract ──► Clean & chunk ──► Embed (MiniLM) ──► ChromaDB
-                                                                               │
-                        ┌─────────────────────────────────┐                   │
-                        │         QUERY (per request)      │                   │
-                        │                                  │                   │
+  arXiv PDFs ──► pymupdf4llm extract ──► Clean & chunk ──► Embed (MiniLM) ──► ChromaDB
+                                                                                   │
+                        ┌─────────────────────────────────┐                       │
+                        │         QUERY (per request)      │                       │
+                        │                                  │                       │
   User question ──► Embed ──► Retrieve top 20 ────────────┘
                                      │
                               Rerank (CrossEncoder)
                                      │
                               Top 5 diverse chunks
+                              (max 2 per paper)
                                      │
-                         LLM (Llama 3.1 via Groq)
+                         LLM (Llama 3.1 8B via Groq)
                                      │
                         Answer + inline citations
 ```
 
-**Two-stage retrieval** is the core design decision: fast approximate search (bi-encoder embeddings) narrows 2,874 chunks to 20 candidates, then a slower but more accurate cross-encoder reranker scores each (question, chunk) pair together to find the true top 5. This pattern balances speed and quality — the same approach used in production search systems.
+**Two-stage retrieval** is the core design decision: fast approximate search (bi-encoder embeddings) narrows ~2,000 chunks to 20 candidates, then a slower but more accurate cross-encoder reranker scores each (question, chunk) pair together to find the true top 5. This pattern balances speed and quality — the same approach used in production search systems.
 
 ---
 
@@ -46,13 +56,14 @@ Built as a portfolio project to demonstrate end-to-end AI engineering — from d
 
 | Component | Tool | Why |
 |---|---|---|
-| PDF extraction | PyMuPDF | Fast, handles complex layouts |
+| PDF extraction | pymupdf4llm | Clean markdown output, handles complex layouts |
 | Chunking | LangChain RecursiveCharacterTextSplitter | Natural boundary-aware splitting |
 | Embeddings | `all-MiniLM-L6-v2` | Fast, free, strong semantic search |
 | Vector store | ChromaDB (persistent) | Simple, local, production-ready API |
 | Reranking | `cross-encoder/ms-marco-MiniLM-L-6-v2` | Accurate pair-level relevance scoring |
 | LLM | Llama 3.1 8B via Groq | Fast inference, free tier |
-| UI | Streamlit (in progress) | Clean, deployable, no frontend overhead |
+| UI | Streamlit | Clean, deployable, streaming responses |
+| Deployment | Hugging Face Spaces (Docker) | Free, public, AI community standard |
 
 ---
 
@@ -66,32 +77,40 @@ Curated with a deliberate split:
 
 Topics covered: fairness, transparency, accountability, explainability, trustworthy AI, bias mitigation, AI governance, EU AI Act context, power dynamics in AI development.
 
-Total: **1949 chunks** · avg chunk size **847 characters**
+> Papers are not included in this repository for copyright reasons. 
 
 ---
 
 ## Example Output
 
-**Q: What is the relationship between explainability and accountability in AI?**
+**Q: How does the opacity of deep learning models undermine accountability in responsible AI frameworks?**
 
 ```
 Retrieved 20 chunks → Reranked to 5 chunks
 
 Sources used:
-  [1] Connecting the Dots in Trustworthy Artificial Intelligence (rerank score: 5.370)
-  [2] Connecting the Dots in Trustworthy Artificial Intelligence (rerank score: 4.527)
-  [3] Explainable Artificial Intelligence (XAI): Concepts, Taxonomies,
-    Opportunities and Challenges toward Responsible AI  (rerank score: 1.996)
-  [4] Harnessing Metacognition for Safe and Responsible AI  (rerank score: 1.747)
-  [5] Towards Responsible AI for Education: Hybrid Human-AI to Confront
-    the Elephant in the Room  (rerank score: 1.744)
+  [1] Rethinking responsible AI from ethical pillars to sociotechnical practice
+      Similarity: 0.629 · score 4.881
+  [2] Responsible AI in Marketing: AI Booing and AI Washing Cycle of AI Mistrust
+      Similarity: 0.612 · score 3.562
+  [3] Rethinking responsible AI from ethical pillars to sociotechnical practice
+      Similarity: 0.645 · score 3.433
+  [4] Explainable Artificial Intelligence (XAI): Concepts, Taxonomies,
+      Opportunities and Challenges toward Responsible AI
+      Similarity: 0.680 · score 1.776
+  [5] Harnessing Metacognition for Safe and Responsible AI
+      Similarity: 0.648 · score 1.554
 ```
 
-> According to the provided research papers, explainability and accountability are related but distinct concepts. Explainability refers to the ability of an AI system to provide clear and understandable reasons for its functioning and decision-making processes [Source 3]. Accountability, on the other hand, is a matter of compliance with ethical and legal standards, answerability, reporting, and oversight, and attribution and enforcement of consequences [Source 2].
+> The opacity of deep learning models significantly undermines accountability in responsible AI frameworks by obscuring causal relationships between design choices and outcomes [Source 1]. This opacity, often referred to as the "black box" problem, hinders the establishment of clear causal links between specific human decisions and specific AI behaviors [Source 1]. As a result, it becomes extraordinarily difficult to hold individuals or organizations accountable for the actions of AI systems [Source 1].
 >
-> While explainability can contribute to accountability by providing insights into decision-making processes, it is not a direct guarantee of accountability. Accountability requires a broader set of measures, including compliance with regulations and the ability to distribute costs, risks, and liabilities among stakeholders [Source 2].
+> Furthermore, the lack of transparency in deep learning models can lead to unexplained AI-generated recommendations, which can undermine consumer trust and ethical accountability in marketing decisions [Source 2]. This is particularly concerning in marketing operations, where users may over-rely on AI-generated insights, disregarding contextual factors or their expertise [Source 2].
 >
-> In other words, explainability is a necessary but not sufficient condition for accountability. An AI system can be explainable but still lack accountability if it does not comply with relevant regulations or provide adequate oversight mechanisms [Source 2].
+> The fragility of responsible AI's foundational pillars, including transparency, accountability, and explainability, is further exposed by the operational challenges of deep learning models [Source 3]. The conceptual contradictions and operational challenges that undermine these pillars highlight the need for a more nuanced understanding of the relationships between design choices and outcomes.
+>
+> Explainability, a key principle of responsible AI, is still an insufficiently addressed challenge in the field of AI research [Source 4]. The lack of explainability in deep learning models makes it challenging for stakeholders to understand AI-driven conclusions, limiting transparency and hindering responsible oversight [Source 5]. This opacity can lead to unintended consequences, such as the amplification of societal biases, which can result in discriminatory outcomes [Source 5].
+>
+> In conclusion, the opacity of deep learning models undermines accountability in responsible AI frameworks by obscuring causal relationships between design choices and outcomes, hindering transparency, and limiting explainability. This highlights the need for more research in explainability and transparency, as well as the development of more robust and accountable AI systems [Source 4].
 
 ---
 
@@ -101,10 +120,16 @@ Sources used:
 The corpus is small (20 papers), changes over time, and answers need to be traceable to specific sources. RAG is the right tool — fine-tuning would bake knowledge in without citation ability and would need retraining whenever new papers are added.
 
 **Why two-stage retrieval?**
-Running a cross-encoder on all 2,874 chunks per query would be too slow. Bi-encoder embeddings do a fast broad search first, then the cross-encoder does accurate pair-level scoring on only the top 20 candidates.
+Running a cross-encoder on all chunks per query would be too slow. Bi-encoder embeddings do a fast broad search first, then the cross-encoder does accurate pair-level scoring on only the top 20 candidates.
 
 **Why diversity enforcement?**
 Without it, one highly relevant paper dominates all top-K results. Capping at 2 chunks per paper forces the system to surface perspectives from multiple sources — more useful and more honest.
+
+**Why pymupdf4llm over raw PyMuPDF?**
+Raw PDF extraction produces noisy text full of headers, footers, and layout artifacts. pymupdf4llm outputs clean markdown that handles multi-column layouts, figure captions, and running headers automatically — significantly improving chunk quality.
+
+**Hallucination prevention via score gating**
+Before calling the LLM, the system checks the top rerank score. If it falls below a threshold, the question is likely outside the corpus scope and the system returns a clear "out of scope" message instead of calling the LLM at all. This prevents the model from answering confidently with fabricated citations when it has no grounding.
 
 **Scalable ingestion**
 The ingestion script checks existing chunk IDs in ChromaDB before embedding. Adding new papers means dropping PDFs in the folder and rerunning — only the new chunks get embedded.
@@ -114,27 +139,53 @@ The ingestion script checks existing chunk IDs in ChromaDB before embedding. Add
 ## Known Limitations
 
 - **Fixed-size chunking** can cut mid-sentence on long complex sentences. `SemanticChunker` (LangChain) would be a proper fix — splits on topic boundaries rather than character count.
-- **Topic drift** on out-of-scope questions — the system retrieves the closest chunks even when a question has no relevant answer in the corpus. A confidence threshold filter is planned.
-- **PDF extraction quality** varies — scanned or image-based PDFs extract poorly. OCR integration (Tesseract) would handle these.
+- **PDF extraction quality** varies across publishers — some papers require title override logic due to nonstandard layouts.
 
 ---
 
 ## Roadmap
 
 - [x] Data collection — arXiv API + manual curation
-- [x] PDF extraction and cleaning
-- [x] Chunking with overlap
+- [x] PDF extraction and cleaning with pymupdf4llm
+- [x] Chunking with overlap and chunk quality filtering
 - [x] Embedding with sentence-transformers
 - [x] Persistent vector store (ChromaDB)
-- [x] Two-stage retrieval with reranking
-- [x] Diversity enforcement
+- [x] Two-stage retrieval with cross-encoder reranking
+- [x] Diversity enforcement (max 2 chunks per paper)
 - [x] Grounded generation with citations (Groq / Llama 3.1)
-- [x] Stress testing — hallucination, out-of-scope, conflicting info
-- [ ] Streamlit UI with streaming responses
-- [ ] Docker containerization
+- [x] Hallucination prevention via rerank score gating
+- [x] Stress testing — hallucination, out-of-scope, conflicting info, multi-hop
+- [x] Streamlit UI with streaming responses
+- [x] Docker containerization
+- [x] Deploy on Hugging Face Spaces
 - [ ] GitHub Actions CI/CD
-- [ ] Deploy on Hugging Face Spaces
+- [ ] Semantic chunking for better boundary detection
+- [ ] Expand corpus to 50+ papers
 
 ---
 
+## Setup
 
+**Clone and install:**
+```bash
+git clone https://github.com/Donna737/responsible-ai-rag.git
+cd responsible-ai-rag
+uv venv && source .venv/bin/activate
+uv pip install -r requirements.txt
+```
+
+**Set your API key:**
+```bash
+cp env.example .env
+# add your Groq API key to .env
+```
+Get a free key at [console.groq.com](https://console.groq.com)
+
+**Add your papers:**
+Place PDF files in the `papers/` folder, then run:
+```bash
+streamlit run app.py
+```
+On first run the vector store builds automatically. Every run after loads instantly.
+
+---
