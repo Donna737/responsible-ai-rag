@@ -99,15 +99,19 @@ Sources used:
       Similarity: 0.648 · score 1.554
 ```
 
-> The opacity of deep learning models significantly undermines accountability in responsible AI frameworks by obscuring causal relationships between design choices and outcomes [Source 1]. This opacity, often referred to as the "black box" problem, hinders the establishment of clear causal links between specific human decisions and specific AI behaviors [Source 1]. As a result, it becomes extraordinarily difficult to hold individuals or organizations accountable for the actions of AI systems [Source 1].
+> The opacity of deep learning models significantly undermines accountability in responsible AI frameworks by obscuring causal relationships between design choices and outcomes [Source 1]. This opacity, also known as the "black box problem," arises from the complex decision-making processes of deep learning models, which lack transparency [Source 2]. As a result, it becomes extraordinarily difficult to establish clear causal links between specific human decisions and specific AI behaviours, exacerbating accountability gaps [Source 1].
+
+
 >
-> Furthermore, the lack of transparency in deep learning models can lead to unexplained AI-generated recommendations, which can undermine consumer trust and ethical accountability in marketing decisions [Source 2]. This is particularly concerning in marketing operations, where users may over-rely on AI-generated insights, disregarding contextual factors or their expertise [Source 2].
+> Furthermore, the opacity of deep learning models complicates interpretability and accountability, making it challenging for stakeholders to understand AI-driven conclusions [Source 5]. This lack of transparency undermines the principles of fairness, accountability, and value alignment, which are essential components of responsible AI frameworks [Source 3]. In fact, the guidelines behind Responsible AI emphasize the importance of explainability, fairness, accountability, and privacy when implementing AI models in real environments [Source 4].
+
+
 >
-> The fragility of responsible AI's foundational pillars, including transparency, accountability, and explainability, is further exposed by the operational challenges of deep learning models [Source 3]. The conceptual contradictions and operational challenges that undermine these pillars highlight the need for a more nuanced understanding of the relationships between design choices and outcomes.
+> The consequences of this opacity are far-reaching, as unexplained AI-generated recommendations can undermine consumer trust and ethical accountability in marketing operations [Source 2]. Moreover, the over-reliance on AI-generated insights can lead to a disregard for contextual factors or human expertise, further exacerbating accountability gaps [Source 2].
 >
-> Explainability, a key principle of responsible AI, is still an insufficiently addressed challenge in the field of AI research [Source 4]. The lack of explainability in deep learning models makes it challenging for stakeholders to understand AI-driven conclusions, limiting transparency and hindering responsible oversight [Source 5]. This opacity can lead to unintended consequences, such as the amplification of societal biases, which can result in discriminatory outcomes [Source 5].
+> To address these challenges, researchers have identified research needs around the concepts and metrics to evaluate the explainability of ML models, and outlined research directions toward making Deep Learning models more understandable [Source 4]. Additionally, the concept of Responsible Artificial Intelligence imposes the systematic adoption of several AI principles, including explainability, fairness, accountability, and privacy, to ensure that AI models are of practical use in real environments [Source 4].
 >
-> In conclusion, the opacity of deep learning models undermines accountability in responsible AI frameworks by obscuring causal relationships between design choices and outcomes, hindering transparency, and limiting explainability. This highlights the need for more research in explainability and transparency, as well as the development of more robust and accountable AI systems [Source 4].
+> In conclusion, the opacity of deep learning models undermines accountability in responsible AI frameworks by obscuring causal relationships between design choices and outcomes, complicating interpretability and accountability, and undermining the principles of fairness, accountability, and value alignment. Addressing these challenges requires a balanced trust framework that enhances AI literacy, promotes human oversight, and ensures the systematic adoption of responsible AI principles.
 
 ---
 
