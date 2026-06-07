@@ -127,10 +127,7 @@ st.markdown(f"""
         <span class="stat-value">2</span>
         <span class="stat-label">Stage retrieval</span>
     </div>
-    <div class="stat-item">
-        <span class="stat-value">2020–2024</span>
-        <span class="stat-label">Coverage</span>
-    </div>
+    
 </div>
 """, unsafe_allow_html=True)
 

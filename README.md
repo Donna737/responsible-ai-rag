@@ -74,7 +74,7 @@ Curated with a deliberate split:
 
 Topics covered: fairness, transparency, accountability, explainability, trustworthy AI, bias mitigation, AI governance, EU AI Act context, power dynamics in AI development.
 
-> Papers are not included in this repository for copyright reasons. 
+> > Papers are not included in this repository for copyright reasons. See [`papers/README.md`](papers/README.md) for the full list of papers and where to download them.
 
 ---
 
@@ -161,9 +161,8 @@ The ingestion script checks existing chunk IDs in ChromaDB before embedding. Add
 - [x] Streamlit UI with streaming responses
 - [x] Docker containerization
 - [x] Deploy on Hugging Face Spaces
-- [ ] GitHub Actions CI/CD
-- [ ] Semantic chunking for better boundary detection
-- [ ] Expand corpus to 50+ papers
+- [x] GitHub Actions CI/CD
+
 
 ---
 
