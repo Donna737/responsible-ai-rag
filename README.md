@@ -80,6 +80,8 @@ Topics covered: fairness, transparency, accountability, explainability, trustwor
 
 ## Example Output
 
+> **Note:** Answers vary slightly between runs due to LLM temperature sampling. The retrieved sources and core content remain consistent — only the phrasing differs.
+
 **Q: How does the opacity of deep learning models undermine accountability in responsible AI frameworks?**
 
 ```
