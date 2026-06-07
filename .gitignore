@@ -5,7 +5,6 @@ __pycache__/
 
 # Project specific
 chroma_db/
-papers/
 *.pdf
 
 # C extensions

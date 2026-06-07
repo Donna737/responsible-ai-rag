@@ -34,6 +34,13 @@ def extract_title(pdf_path):
     a real paper title — skips journal headers, metadata blocks,
     and short non-title headings.
     """
+    # hardcoded overrides for papers where automatic extraction fails
+    overrides = {
+        "2502.18359v1.pdf": "Responsible AI Agents",
+    }
+    if Path(pdf_path).name in overrides:
+        return overrides[Path(pdf_path).name]
+
     try:
         text  = pymupdf4llm.to_markdown(str(pdf_path))
         lines = text.split('\n')
@@ -46,6 +53,10 @@ def extract_title(pdf_path):
             title = re.sub(r'^#+\s*', '', line).strip()
             title = re.sub(r'\*\*', '', title).strip()
             title = re.sub(r"[_']", '', title).strip()
+
+            # remove leading OPEN / OPEN ACCESS artifact from journal badges
+            if title.upper().startswith('OPEN '):
+                title = title[5:].strip()
 
             if not (15 < len(title) < 200):
                 continue
